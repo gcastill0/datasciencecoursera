@@ -1,0 +1,21 @@
+lab_id: threat-hunt-bruteforce
+title: Detect Brute Force Attack
+data: auth_logs.json
+
+steps:
+  - id: step1
+    instruction: Find failed login attempts
+    expected:
+      query: status=failed
+
+  - id: step2
+    instruction: Find events from suspicious IP 203.0.113.50
+    expected:
+      query: src_ip=203.0.113.50
+
+  - id: step3
+    instruction: Find IPs with more than 5 failed attempts
+    expected:
+      type: aggregation
+      field: src_ip
+      threshold: 5
